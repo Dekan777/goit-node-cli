@@ -13,13 +13,21 @@ async function listContacts() {
     }
 }
 
-
+// Повертає об'єкт контакту з таким id. Повертає 
+//  null, якщо контакт з таким id не знайдений.
 async function getContactById(contactId) {
-    // ...твій код. Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
+    try {
+        const contacts = await listContacts();
+        return contacts.find(contact => contact.id === contactId) || null;
+    } catch (error) {
+        return null;
+    }
 }
-
+// ...твій код. Повертає об'єкт видаленого 
+//  контакту. Повертає null, якщо контакт 
+//  з таким id не знайдений.
 async function removeContact(contactId) {
-    // ...твій код. Повертає об'єкт видаленого контакту. Повертає null, якщо контакт з таким id не знайдений.
+
 }
 
 async function addContact(name, email, phone) {
@@ -39,3 +47,18 @@ async function addContact(name, email, phone) {
 // }).catch(error => {
 //     console.error('Ошибка при чтении контактов:', error);
 // });
+
+
+
+// const contactId = "AeHIrLTr6JkxGE6SN-0Rw";
+// getContactById(contactId)
+//     .then(contact => {
+//         if (contact) {
+//             console.log("Найден контакт:", contact);
+//         } else {
+//             console.log("Контакт с id", contactId, "не найден.");
+//         }
+//     })
+//     .catch(error => {
+//         console.error("Произошла ошибка при поиске контакта:", error);
+//     });
