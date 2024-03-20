@@ -1,5 +1,9 @@
+
 const fs = require('fs/promises');
 const path = require('path');
+const { nanoid } = require('nanoid');
+
+
 const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 
@@ -24,7 +28,7 @@ async function getContactById(contactId) {
     }
 }
 
-// ...твій код. Повертає об'єкт видаленого 
+// Повертає об'єкт видаленого 
 //  контакту. Повертає null, якщо контакт 
 //  з таким id не знайдений.
 async function removeContact(contactId) {
@@ -38,17 +42,29 @@ async function removeContact(contactId) {
 
         return removedContact;
     } catch (error) {
-        console.error('Помилка при видаленні контакту:', error);
         return null;
     }
 
 }
-
+// Повертає об'єкт доданого контакту (з id).
 async function addContact(name, email, phone) {
-    // ...твій код. Повертає об'єкт доданого контакту (з id).
+    try {
+        let contacts = await listContacts();
+        const newContact = {
+            id: nanoid(),
+            name,
+            email,
+            phone
+        };
+
+        contacts.push(newContact);
+        await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+
+        return newContact;
+    } catch (error) {
+        return null;
+    }
 }
-
-
 
 
 
@@ -91,3 +107,20 @@ async function addContact(name, email, phone) {
 //     .catch(error => {
 //         console.error("Произошла ошибка при удалении контакта:", error);
 //     });
+
+
+const name = "John Doe";
+const email = "john@example.com";
+const phone = "123-456-7890";
+
+addContact(name, email, phone)
+    .then(newContact => {
+        if (newContact) {
+            console.log("Успешно добавлен новый контакт:", newContact);
+        } else {
+            console.log("не удалось добавить новый контакт.");
+        }
+    })
+    .catch(error => {
+        console.error("Произошла ошибка при добавлении контакта:", error);
+    });
