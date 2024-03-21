@@ -1,7 +1,6 @@
 
 const fs = require('fs/promises');
 const path = require('path');
-// const { nanoid } = require('nanoid');
 
 function generateUniqueId(length = 10) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
