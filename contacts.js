@@ -1,9 +1,16 @@
 
 const fs = require('fs/promises');
 const path = require('path');
-const { nanoid } = require('nanoid');
+// const { nanoid } = require('nanoid');
 
-
+function generateUniqueId(length = 10) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
 const contactsPath = path.join(__dirname, 'db', 'contacts.json');
 
 
@@ -51,7 +58,7 @@ async function addContact(name, email, phone) {
     try {
         let contacts = await listContacts();
         const newContact = {
-            id: nanoid(),
+            id: generateUniqueId(),
             name,
             email,
             phone
@@ -66,63 +73,5 @@ async function addContact(name, email, phone) {
     }
 }
 
-
-
-
-
-
-
-// listContacts().then(contacts => {
-//     console.log(contacts);
-// }).catch(error => {
-//     console.error('Ошибка при чтении контактов:', error);
-// });
-
-
-
-// const contactId = "AeHIrLTr6JkxGE6SN-0Rw";
-// getContactById(contactId)
-//     .then(contact => {
-//         if (contact) {
-//             console.log("Найден контакт:", contact);
-//         } else {
-//             console.log("Контакт с id", contactId, "не найден.");
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Произошла ошибка при поиске контакта:", error);
-//     });
-
-
-// const contactIdToRemove = "AeHIrLTr6JkxGE6SN-0Rw";
-
-// removeContact(contactIdToRemove)
-//     .then(removedContact => {
-//         if (removedContact) {
-//             console.log("Успешно удалён контакт:", removedContact);
-//         } else {
-//             console.log("Контакт с ID", contactIdToRemove, "не был найден.");
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Произошла ошибка при удалении контакта:", error);
-//     });
-
-
-// const name = "John Doe";
-// const email = "john@example.com";
-// const phone = "123-456-7890";
-
-// addContact(name, email, phone)
-//     .then(newContact => {
-//         if (newContact) {
-//             console.log("Успешно добавлен новый контакт:", newContact);
-//         } else {
-//             console.log("не удалось добавить новый контакт.");
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Произошла ошибка при добавлении контакта:", error);
-//     });
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
