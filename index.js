@@ -1,4 +1,6 @@
 import { program } from "commander";
+const { listContacts, getContactById, removeContact, addContact } = require("./contacts");
+
 program
     .option("-a, --action <type>", "choose action")
     .option("-i, --id <type>", "user id")
@@ -14,19 +16,23 @@ const options = program.opts();
 async function invokeAction({ action, id, name, email, phone }) {
     switch (action) {
         case "list":
-            // ...
+            const contacts = await listContacts();
+            console.log(contacts);
             break;
 
         case "get":
-            // ... id
+            const contact = await getContactById(id);
+            console.log(contact ? `Contact found: ${JSON.stringify(contact)}` : `Contact with id ${id} not found.`);
             break;
 
         case "add":
-            // ... name email phone
+            const newContact = await addContact(name, email, phone);
+            console.log(newContact ? `New contact added: ${JSON.stringify(newContact)}` : "Failed to add new contact.");
             break;
 
         case "remove":
-            // ... id
+            const removedContact = await removeContact(id);
+            console.log(removedContact ? `Contact removed: ${JSON.stringify(removedContact)}` : `Contact with id ${id} not found.`);
             break;
 
         default:

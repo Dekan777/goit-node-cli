@@ -109,18 +109,20 @@ async function addContact(name, email, phone) {
 //     });
 
 
-const name = "John Doe";
-const email = "john@example.com";
-const phone = "123-456-7890";
+// const name = "John Doe";
+// const email = "john@example.com";
+// const phone = "123-456-7890";
 
-addContact(name, email, phone)
-    .then(newContact => {
-        if (newContact) {
-            console.log("Успешно добавлен новый контакт:", newContact);
-        } else {
-            console.log("не удалось добавить новый контакт.");
-        }
-    })
-    .catch(error => {
-        console.error("Произошла ошибка при добавлении контакта:", error);
-    });
+// addContact(name, email, phone)
+//     .then(newContact => {
+//         if (newContact) {
+//             console.log("Успешно добавлен новый контакт:", newContact);
+//         } else {
+//             console.log("не удалось добавить новый контакт.");
+//         }
+//     })
+//     .catch(error => {
+//         console.error("Произошла ошибка при добавлении контакта:", error);
+//     });
+
+module.exports = { listContacts, getContactById, removeContact, addContact };
